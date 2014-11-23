@@ -27,6 +27,7 @@ urlStatus('http://httpbin.org/404', function(status){
   console.log(status)
   // "404 error"
 })
+```
 
 ### Todos
 
