@@ -4,11 +4,29 @@
   "description": "Returns the status of an HTTP get request.",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha"
+    "test": "mocha"
   },
   "author": "Montana Flynn",
   "license": "MIT",
   "dependencies": {
     "unirest": "^0.3.0"
-  }
+  },
+  "devDependencies": {
+    "mocha": "^2.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/montanaflynn/url-status.git"
+  },
+  "keywords": [
+    "url",
+    "status",
+    "http",
+    "get",
+    "code"
+  ],
+  "bugs": {
+    "url": "https://github.com/montanaflynn/url-status/issues"
+  },
+  "homepage": "https://github.com/montanaflynn/url-status"
 }
