@@ -15,17 +15,17 @@ var urlStatus = require('url-status')
 
 urlStatus('http://httpbin.org/get', function(status){
   console.log(status)
-  // "up"
+  // { status: 200, message: 'Online' }
 })
 
 urlStatus('http://notarealdomain35252.org/', function(status){
   console.log(status)
-  // "down"
+  // { status: false, message: 'Offline' }
 })
 
 urlStatus('http://httpbin.org/404', function(status){
   console.log(status)
-  // "404 error"
+  // { status: 404, message: 'Not Found' }
 })
 ```
 

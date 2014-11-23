@@ -32,14 +32,14 @@ describe('Offline', function () {
 })
 
 describe('Errors', function () {
-  it('should return message "not found"', function(done){
-    urlStatus('http://httpbin.org/dsfsdfsd', function(status){
+  it('should return message "Not Found"', function(done){
+    urlStatus('http://httpbin.org/status/404', function(status){
       assert.equal(status.message, "Not Found")
       done()
     })
   })
   it('should return status "404"', function(done){
-    urlStatus('http://httpbin.org/dsfsdfsd', function(status){
+    urlStatus('http://httpbin.org/status/404', function(status){
       assert.equal(status.status, "404")
       done()
     })
