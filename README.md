@@ -1,4 +1,4 @@
-# url-status [![NPM Version](http://img.shields.io/npm/v/url-status.svg?style=flat-square)](https://www.npmjs.org/package/url-status) [![wercker continuous integration testing](http://img.shields.io/wercker/ci/546b83aba60c33c27c02add4.svg?style=flat-square)](https://app.wercker.com/project/bykey/2a16934d4add8e3fc3fb7ab83c7cc866) [![npm dependencies](http://img.shields.io/gemnasium/montanaflynn/url-status.svg?style=flat-square)](https://gemnasium.com/montanaflynn/human-date)
+# url-status [![NPM Version](http://img.shields.io/npm/v/url-status.svg?style=flat-square)](https://www.npmjs.org/package/url-status) [![wercker continuous integration testing](http://img.shields.io/wercker/ci/546b83aba60c33c27c02add4.svg?style=flat-square)](https://app.wercker.com/project/bykey/a03b296af33a18ae4518deab0ffba57e) [![npm dependencies](http://img.shields.io/david/montanaflynn/url-status.svg?style=flat-square)](https://david-dm.org/montanaflynn/url-status)
 
 Returns the status of an HTTP get request.
 
