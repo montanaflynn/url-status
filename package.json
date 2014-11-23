@@ -1,6 +1,6 @@
 {
   "name": "url-status",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Returns the status of an HTTP get request.",
   "main": "index.js",
   "scripts": {
