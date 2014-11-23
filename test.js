@@ -1,14 +1,28 @@
+var statusCodes = require('./status-codes.js')
 var urlStatus = require('./index.js')
 var assert = require('assert')
 var nock = require('nock');
 
-nock('http://localhost:9876').get('/ok').reply(200,"").persist();
-nock('http://localhost:9876').get('/404').reply(404,"").persist();
+// Mock http responses
+var nockServer = nock('http://localhost:9876');
+
+nockServer.get('/ok').reply(200, undefined).persist();
+nockServer.get('/123').reply(123, undefined).persist();
+
+nockServer.get('/404').reply(404, undefined, {
+  Location: 'http://localhost:9876/ok'
+}).persist();
+
+nockServer.get('/301').reply(301, undefined, {
+  Location: 'http://localhost:9876/ok'
+}).get('/302').reply(302, undefined, {
+  Location: 'http://localhost:9876/ok'
+})
 
 describe('Online', function () {
   it('should return message "Online"', function(done){
     urlStatus('http://localhost:9876/ok', function(status){
-      assert.equal(status.message, "Online")
+      assert.equal(status.message, "OK")
       done()
     })
   })
@@ -35,7 +49,31 @@ describe('Offline', function () {
   })
 })
 
-describe('Codes', function () {
+describe('Redirects', function () {
+  it('should follow 301 redirects', function(done){
+    urlStatus('http://localhost:9876/301', function(status){
+      assert.equal(status.status, 200)
+      done()
+    })
+  })
+  it('should follow 302 redirects', function(done){
+    urlStatus('http://localhost:9876/302', function(status){
+      assert.equal(status.status, 200)
+      done()
+    })
+  })
+  it('should not follow 404 redirect', function(done){
+    urlStatus('http://localhost:9876/404', function(status){
+      assert.equal(status.status, 404)
+      done()
+    })
+  })
+})
+
+describe('Status Codes', function () {
+  it('should be an object', function(){
+    assert.equal(typeof statusCodes, "object")
+  })
   it('should return message "Not Found"', function(done){
     urlStatus('http://localhost:9876/404', function(status){
       assert.equal(status.message, "Not Found")
@@ -48,8 +86,8 @@ describe('Codes', function () {
       done()
     })
   })
-  it('should return message "Status"', function(done){
-    urlStatus('http://www.mocky.io/v2/54717a25db32047d00fed9fe', function(status){
+  it('should return message "Status" for custom codes', function(done){
+    urlStatus('http://localhost:9876/123', function(status){
       assert.equal(status.message, "Status")
       done()
     })
