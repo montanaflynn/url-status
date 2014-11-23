@@ -1,0 +1,14 @@
+{
+  "name": "url-status",
+  "version": "0.0.1",
+  "description": "Returns the status of an HTTP get request.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
+  "author": "Montana Flynn",
+  "license": "MIT",
+  "dependencies": {
+    "unirest": "^0.3.0"
+  }
+}
