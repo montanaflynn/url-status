@@ -13,24 +13,23 @@ module.exports = function getStatus(url, cb) {
     var serverError = res.serverError
 
     if (!status || typeof status !== 'number') {
-      buildResponse(false, "Offline")
-    } else if (res.ok){
-      buildResponse(status, "Online")
-    } else if (clientError || serverError) {
-      buildResponse(status, getResponseMessage(status))
+      buildOutput(false, false, "Offline")
+    }else if (clientError || serverError) {
+      buildOutput(status, statusMessage(status), "Error")
     } else {
-      buildResponse(status, "Status")
+      buildOutput(status, statusMessage(status), "Online")
+    }
+
+    function buildOutput(status, msg, type) {
+      cb({
+        code: status,
+        message: msg,
+        type: type
+      })
     }
   })
-
-  function buildResponse(status, msg) {
-    cb({
-      status: status,
-      message: msg
-    })
-  } 
 }
 
-function getResponseMessage(status) {
+function statusMessage(status) {
   return statusCodes[status] || "Status"
 }

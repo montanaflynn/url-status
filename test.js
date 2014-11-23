@@ -20,6 +20,12 @@ nockServer.get('/301').reply(301, undefined, {
 })
 
 describe('Online', function () {
+  it('should return type "Online"', function(done){
+    urlStatus('http://localhost:9876/ok', function(status){
+      assert.equal(status.type, "Online")
+      done()
+    })
+  })
   it('should return message "Online"', function(done){
     urlStatus('http://localhost:9876/ok', function(status){
       assert.equal(status.message, "OK")
@@ -28,22 +34,28 @@ describe('Online', function () {
   })
   it('should return status "200"', function(done){
     urlStatus('http://localhost:9876/ok', function(status){
-      assert.equal(status.status, 200)
+      assert.equal(status.code, 200)
       done()
     })
   })
 })
 
 describe('Offline', function () {
-  it('should return message "Offline"', function(done){
+  it('should return type "Offline"', function(done){
     urlStatus('http://nodomain:9876/', function(status){
-      assert.equal(status.message, "Offline")
+      assert.equal(status.type, "Offline")
+      done()
+    })
+  })
+  it('should return message "false"', function(done){
+    urlStatus('http://nodomain:9876/', function(status){
+      assert.equal(status.message, false)
       done()
     })
   })
   it('should return status "false"', function(done){
     urlStatus('http://nodomain:9876/', function(status){
-      assert.equal(status.status, false)
+      assert.equal(status.code, false)
       done()
     })
   })
@@ -52,27 +64,30 @@ describe('Offline', function () {
 describe('Redirects', function () {
   it('should follow 301 redirects', function(done){
     urlStatus('http://localhost:9876/301', function(status){
-      assert.equal(status.status, 200)
+      assert.equal(status.code, 200)
       done()
     })
   })
   it('should follow 302 redirects', function(done){
     urlStatus('http://localhost:9876/302', function(status){
-      assert.equal(status.status, 200)
+      assert.equal(status.code, 200)
       done()
     })
   })
   it('should not follow 404 redirect', function(done){
     urlStatus('http://localhost:9876/404', function(status){
-      assert.equal(status.status, 404)
+      assert.equal(status.code, 404)
       done()
     })
   })
 })
 
-describe('Status Codes', function () {
-  it('should be an object', function(){
-    assert.equal(typeof statusCodes, "object")
+describe('Errors', function () {
+  it('should return type "Error"', function(done){
+    urlStatus('http://localhost:9876/404', function(status){
+      assert.equal(status.type, "Error")
+      done()
+    })
   })
   it('should return message "Not Found"', function(done){
     urlStatus('http://localhost:9876/404', function(status){
@@ -82,11 +97,35 @@ describe('Status Codes', function () {
   })
   it('should return status "404"', function(done){
     urlStatus('http://localhost:9876/404', function(status){
-      assert.equal(status.status, "404")
+      assert.equal(status.code, "404")
       done()
     })
   })
-  it('should return message "Status" for custom codes', function(done){
+  it('should not follow 404 redirect', function(done){
+    urlStatus('http://localhost:9876/404', function(status){
+      assert.equal(status.code, 404)
+      done()
+    })
+  })
+})
+
+describe('Status Codes', function () {
+  it('should be an object', function(){
+    assert.equal(typeof statusCodes, "object")
+  })
+  it('should return status "123"', function(done){
+    urlStatus('http://localhost:9876/123', function(status){
+      assert.equal(status.code, 123)
+      done()
+    })
+  })
+  it('should return message "Status"', function(done){
+    urlStatus('http://localhost:9876/123', function(status){
+      assert.equal(status.message, "Status")
+      done()
+    })
+  })
+  it('should return type "Online"', function(done){
     urlStatus('http://localhost:9876/123', function(status){
       assert.equal(status.message, "Status")
       done()
