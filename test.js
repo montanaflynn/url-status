@@ -1,25 +1,10 @@
 var urlStatus = require('./index.js')
 var assert = require('assert')
 
-describe('down', function () {
-  it('should return message "down"', function(done){
-    urlStatus('http://httpbindfsdf.org/get', function(status){
-      assert.equal(status.message, "down")
-      done()
-    })
-  })
-  it('should return status "false"', function(done){
-    urlStatus('http://httpbindfsdf.org/get', function(status){
-      assert.equal(status.status, false)
-      done()
-    })
-  })
-})
-
-describe('ok', function () {
-  it('should return message "up"', function(done){
+describe('Online', function () {
+  it('should return message "Online"', function(done){
     urlStatus('http://httpbin.org/get', function(status){
-      assert.equal(status.message, "up")
+      assert.equal(status.message, "Online")
       done()
     })
   })
@@ -31,10 +16,25 @@ describe('ok', function () {
   })
 })
 
-describe('error', function () {
+describe('Offline', function () {
+  it('should return message "Offline"', function(done){
+    urlStatus('http://httpbindfsdf.org/get', function(status){
+      assert.equal(status.message, "Offline")
+      done()
+    })
+  })
+  it('should return status "false"', function(done){
+    urlStatus('http://httpbindfsdf.org/get', function(status){
+      assert.equal(status.status, false)
+      done()
+    })
+  })
+})
+
+describe('Errors', function () {
   it('should return message "not found"', function(done){
     urlStatus('http://httpbin.org/dsfsdfsd', function(status){
-      assert.equal(status.message, "error")
+      assert.equal(status.message, "Not Found")
       done()
     })
   })
